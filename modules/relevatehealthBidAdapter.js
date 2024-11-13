@@ -1,3 +1,4 @@
+import { formatResponse } from '../libraries/deepintentUtils/index.js';
 import {
   registerBidder
 } from '../src/adapters/bidderFactory.js';
@@ -120,32 +121,6 @@ function getSite(bidderRequest) {
     site.name = '';
   }
   return site;
-}
-// Function to format response
-function formatResponse(bid) {
-  let response = {};
-  response.requestId = bid && bid.impid ? bid.impid : undefined;
-  response.cpm = bid && bid.price ? bid.price : 0.0;
-  response.width = bid && bid.w ? bid.w : 0;
-  response.height = bid && bid.h ? bid.h : 0;
-  response.ad = bid && bid.adm ? bid.adm : '';
-  response.meta = {
-    advertiserDomains: bid && bid.adomain ? bid.adomain : []
-  };
-  response.creativeId = bid && bid.crid ? bid.crid : undefined;
-  response.netRevenue = false;
-  response.currency = bid && bid.cur ? bid.cur : 'USD';
-  response.ttl = 300;
-  response.dealId = bid && bid.dealId ? bid.dealId : undefined;
-  return response;
-}
-// Function to get the data from storage
-function getStorageValue(key) {
-  let storageValue = '';
-  if (storage.localStorageIsEnabled()) {
-    storageValue = storage.getDataFromLocalStorage(key);
-  }
-  return storageValue;
 }
 // Function to build the user object
 function buildUser(bid) {
